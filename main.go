@@ -17,8 +17,6 @@ func hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func getKeyvaultSecret(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, fmt.Sprintf("Keyvault Secret value is: %s", "TODO"))
-
 	keyvaultName := os.Getenv("AZURE_KEYVAULT_NAME")
 	keyvaultSecretName := os.Getenv("AZURE_KEYVAULT_SECRET_NAME")
 	keyvaultSecretVersion := os.Getenv("AZURE_KEYVAULT_SECRET_VERSION")
@@ -30,7 +28,7 @@ func getKeyvaultSecret(w http.ResponseWriter, r *http.Request) {
 		keyClient.Authorizer = authorizer
 	}
 
-	secret, err := keyClient.GetSecret(context.Background(), fmt.Sprintf("https://%s.vault.azure.com", keyvaultName), keyvaultSecretName, keyvaultSecretVersion)
+	secret, err := keyClient.GetSecret(context.Background(), fmt.Sprintf("https://%s.vault.azure.net", keyvaultName), keyvaultSecretName, keyvaultSecretVersion)
 	if err != nil {
 		log.Printf("failed to retrieve the Keyvault secret: %v", err)
 		return

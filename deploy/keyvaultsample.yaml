@@ -20,13 +20,14 @@ spec:
     spec:
       containers:
       - name: keyvaultsample
-        image: jcorioland/keyvault-aad-pod-identity:1.0
-        environment:
+        image: jcorioland/keyvault-aad-pod-identity:1.1
+        env:
         - name: AZURE_KEYVAULT_NAME
           value: keyvaultk8s
         - name: AZURE_KEYVAULT_SECRET_NAME
           value: mySecret
         - name: AZURE_KEYVAULT_SECRET_VERSION
+          value: f540534c4ddc45be9239611f357a7852
 ---
 apiVersion: v1
 kind: Service
@@ -39,3 +40,4 @@ spec:
     targetPort: 8080
   selector:
     app: keyvaultsample
+  type: LoadBalancer
