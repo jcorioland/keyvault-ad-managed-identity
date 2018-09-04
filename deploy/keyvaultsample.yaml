@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: keyvaultsample
+    aadpodidbinding: keyvaultsampleidentity
+  name: keyvaultsample
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keyvaultsample
+  template:
+    metadata:
+      labels:
+        app: keyvaultsample
+        aadpodidbinding: keyvaultsampleidentity
+      name: keyvaultsample
+    spec:
+      containers:
+      - name: keyvaultsample
+        image: jcorioland/keyvault-aad-pod-identity:1.0
+        environment:
+        - name: AZURE_KEYVAULT_NAME
+          value: keyvaultk8s
+        - name: AZURE_KEYVAULT_SECRET_NAME
+          value: mySecret
+        - name: AZURE_KEYVAULT_SECRET_VERSION
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keyvaultsample
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: keyvaultsample
