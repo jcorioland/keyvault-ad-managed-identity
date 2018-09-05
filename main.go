@@ -9,7 +9,7 @@ import (
 	"os"
 
 	"github.com/Azure/azure-sdk-for-go/services/keyvault/2016-10-01/keyvault"
-	"github.com/Azure/go-autorest/autorest/azure/auth"
+	"github.com/Azure/azure-sdk-for-go/services/keyvault/auth"
 )
 
 func hello(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +34,7 @@ func getKeyvaultSecret(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	io.WriteString(w, fmt.Sprintf("The value of the Keyvault secret is: %v", secret.Value))
+	io.WriteString(w, fmt.Sprintf("The value of the Keyvault secret is: %v", *secret.Value))
 }
 
 func main() {

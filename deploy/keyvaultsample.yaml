@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: keyvaultsample
-        image: jcorioland/keyvault-aad-pod-identity:1.1
+        image: jcorioland/keyvault-aad-pod-identity:1.6
         env:
         - name: AZURE_KEYVAULT_NAME
           value: keyvaultk8s
